@@ -25,6 +25,12 @@ class MyModelTest {
 
     @Test
     void testInit() {
+
+    a.setGravity(2);
+    a.setTrees(true);
+    a.setWater(true);
+    a.setRadius(1);
+    assertEquals(a.getRadius(),1);
     assertEquals(a.getGravity(),0);
     assertEquals(b.getGravity(),4);
     assertEquals(b.getTrees(), true);
@@ -32,6 +38,9 @@ class MyModelTest {
     assertEquals(c.getAccelX(),0);
     int[] g = {0,0};
     assertEquals(c.getCor()[0],g[0]);
+    c.setAccelY(1);
+    c.setAccelX(2);
+    c.setCor(2,5);
     }
 
     // delete or rename this class!
