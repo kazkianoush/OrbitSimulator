@@ -35,7 +35,11 @@ public class Planet {
     }
 
     public void setName(String name) {
-        this.name = name;
+        if (name.length() < 1) {
+            this.name = "GenericName";
+        } else {
+            this.name = name;
+        }
     }
 
     public void setTrees(boolean trees) {
