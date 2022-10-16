@@ -9,33 +9,15 @@ public class Shuttle {
 
     private int accelX;
 
-    private int mass = 10;
 
+    //constructs Shuttle given no arguments
     public Shuttle() {
-//        velocity = new int[2];
-//        this.velocity[0] = 0;
-//        this.velocity[1] = 0;
         this.xcor = 0;
         this.ycor = 0;
         this.accelX = 0;
         this.accelY = 0;
     }
 
-    public Shuttle(int initialVx, int initialVy) {
-//        velocity = new int[2];
-//        this.velocity[0] = initialVx;
-//        this.velocity[1] = initialVy;
-        this.xcor = 0;
-        this.ycor = 0;
-        this.accelX = 0;
-        this.accelY = 0;
-    }
-
-//    public void setVelocity(int newVx, int newVy) {
-//        this.velocity = new int[2];
-//        this.velocity[0] = newVx;
-//        this.velocity[1] = newVy;
-//    }
 
     public void setCor(int newX, int newY) {
         this.xcor = newX;
@@ -47,9 +29,9 @@ public class Shuttle {
 //        return this.velocity;
 //    }
 //
+    //EFFECT: returns the current coordinates of the shuttle
     public int[] getCor() {
-        int[] coordinate = {this.xcor, this.ycor};
-        return coordinate;
+        return new int[]{this.xcor, this.ycor};
     }
 
     public int getAccelX() {

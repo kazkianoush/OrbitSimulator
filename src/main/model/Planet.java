@@ -6,22 +6,36 @@ public class Planet {
     private boolean water;
     private int radius;
 
+    private String name;
+
+    // Constructs Planet given no arguments
     public Planet() {
+        this.name = "Generic Planet";
         this.gravity = 0;
         this.trees = false;
         this.water = false;
         this.radius = 1;
     }
 
-    public Planet(float gravity, boolean trees, boolean water, int radius) {
+    //constructs Planet object given name, gravity, trees, water, and radius
+    public Planet(String name,float gravity, boolean trees, boolean water, int radius) {
+        this.name = name;
         this.gravity = gravity;
         this.trees = trees;
         this.water = water;
         this.radius = radius;
     }
 
+    public String getName() {
+        return this.name;
+    }
+
     public void setGravity(float gravity) {
         this.gravity = gravity;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setTrees(boolean trees) {
@@ -42,6 +56,10 @@ public class Planet {
 
     public boolean getTrees() {
         return this.trees;
+    }
+
+    public boolean getWater() {
+        return this.water;
     }
 
     public int getRadius() {

@@ -1,17 +1,60 @@
 package ui;
 
 
+import java.util.List;
 import java.util.Scanner;
 import model.*;
 import java.util.ArrayList;
 
 public class OrbitApp implements SetupInterface {
     private Scanner input;
+    private List<Planet> planetList;
 
     public OrbitApp() {
-        Planet p = initPlanet();
         Shuttle s = initShuttle();
+
+        planetList = new ArrayList<>();
+        Planet a = new Planet("Generic1", 3, true, true, 2);
+        Planet b = new Planet("Generic2", 3, true, false, 2);
+        Planet c = new Planet("Generic3", 3, false, true, 2);
+        Planet d = new Planet("Generic4", 3, false, false, 2);
+
+        planetList.add(a);
+        planetList.add(b);
+        planetList.add(c);
+        planetList.add(d);
+
+        Planet p = choosePlanet();
+
+        System.out.println(planetList.get(planetList.size() - 1).getName());
+
+
+
         initGame(p,s);
+    }
+
+    public Planet choosePlanet() {
+        String chosenPlanet;
+        Planet p = null;
+        System.out.println("please choose one of the following planets or make your own.");
+        for (Planet planet : planetList) {
+            System.out.println(planet.getName());
+        }
+        chosenPlanet = input.next();
+
+        for (Planet planet : planetList) {
+            if (chosenPlanet.equals("new")) {
+                System.out.println("great choice!");
+                p = initPlanet();
+                planetList.add(p);
+                break;
+            }
+            if (planet.getName().equals(chosenPlanet)) {
+                System.out.println("great!, you have chosen planet: " + planet.getName());
+                return planet;
+            }
+        }
+        return p;
     }
 
     public ArrayList<Object> getSetupPlanet() {
@@ -45,6 +88,7 @@ public class OrbitApp implements SetupInterface {
         Planet p = new Planet();
         input = new Scanner(System.in);
         input.useDelimiter("\n");
+        p.setName(setPlanetName());
         ArrayList<Object> values = getSetupPlanet();
         p.setGravity((float)(values.get(0)));
         p.setTrees((boolean)values.get(1));
@@ -54,26 +98,35 @@ public class OrbitApp implements SetupInterface {
 
     }
 
+    public String setPlanetName() {
+        String name;
+        System.out.println("what would you like the name of your planet to be?: ");
+        name = input.next();
+        return name;
+    }
+
     public ArrayList<Object> getSetupShuttle() {
         ArrayList<Object> values = new ArrayList<>();
 
-        while (true) {
-            System.out.println("what would you like the initial x velocity to be?");
-            int velocityX = input.nextInt();
-            System.out.println("what would you like the initial y velocity to be?");
-            int velocityY = input.nextInt();
-            values.add(velocityX);
-            values.add(velocityY);
-            break;
-        }
+//        while (true) {
+        System.out.println("what would you like the initial x velocity to be?");
+        int velocityX = input.nextInt();
+        System.out.println("what would you like the initial y velocity to be?");
+        int velocityY = input.nextInt();
+        values.add(velocityX);
+        values.add(velocityY);
+//          break;
+//        }
 
         return values;
     }
 
     public Shuttle initShuttle() {
         Shuttle s = new Shuttle();
+        input = new Scanner(System.in);
         ArrayList<Object> values = getSetupShuttle();
-//        s.setVelocity((int)values.get(0),(int)values.get(1));
+        s.setAccelX((int)values.get(0));
+        s.setAccelY((int)values.get(1));
         System.out.println((int)values.get(0));
         System.out.println((int)values.get(1));
         return s;
