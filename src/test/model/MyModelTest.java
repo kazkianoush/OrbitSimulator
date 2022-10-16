@@ -30,6 +30,8 @@ class MyModelTest {
     a.setTrees(true);
     a.setWater(true);
     a.setRadius(1);
+    b.setName("hombre");
+    assertEquals("hombre", b.getName());
     assertEquals(a.getRadius(),1);
     assertEquals(a.getGravity(),2);
     assertEquals(b.getGravity(),4);
