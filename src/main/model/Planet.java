@@ -8,7 +8,7 @@ public class Planet {
 
     private String name;
 
-    // Constructs Planet given no arguments
+
     public Planet() {
         this.name = "Generic Planet";
         this.gravity = 0;
@@ -17,7 +17,7 @@ public class Planet {
         this.radius = 1;
     }
 
-    //constructs Planet object given name, gravity, trees, water, and radius
+
     public Planet(String name,float gravity, boolean trees, boolean water, int radius) {
         this.name = name;
         this.gravity = gravity;

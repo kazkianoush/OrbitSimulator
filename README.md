@@ -14,6 +14,5 @@ the application will be designed to run **shuttle simulations** as it traverses 
 
 - As a user, I want to be able to set up my Shuttle
 - As a user, I want to be able to launch the simulation on my command
-- As a user, I want to be able to see my Shuttle in live time
-- As a user, I want to be able to set up the gravity on my planet
+- As a user, I want to be able to see my Shuttle's movement in live time
 - As a user, I want to be able to either choose a generic planet or make a planet of my own

@@ -1,16 +1,18 @@
 package model;
 
+
+// Represents a shuttle object, with an x coordinate, y coordinate, y acceleration, and x acceleration
 public class Shuttle {
 //    private int[] velocity;
-    private int xcor;
-    private int ycor;
+    private int xcor;  // x coordinate of the shuttle
+    private int ycor;  // y coordinate of the shuttle
 
-    private int accelY;
+    private int accelY; // y acceleration of the shuttle
 
-    private int accelX;
+    private int accelX; // x acceleration of the shuttle
 
 
-    //constructs Shuttle given no arguments
+    // EFFECT: constructs Shuttle given no arguments
     public Shuttle() {
         this.xcor = 0;
         this.ycor = 0;
@@ -18,18 +20,11 @@ public class Shuttle {
         this.accelY = 0;
     }
 
-
     public void setCor(int newX, int newY) {
         this.xcor = newX;
         this.ycor = newY;
     }
 
-
-//    public int[] getVelocity() {
-//        return this.velocity;
-//    }
-//
-    //EFFECT: returns the current coordinates of the shuttle
     public int[] getCor() {
         return new int[]{this.xcor, this.ycor};
     }

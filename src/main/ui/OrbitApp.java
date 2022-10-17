@@ -10,6 +10,8 @@ public class OrbitApp implements SetupInterface {
     private Scanner input;
     private List<Planet> planetList;
 
+    //EFFECTS: generates generic planets that the user can
+    //         choose from, and initiates a custom shuttle, planet, and initiates game
     public OrbitApp() {
         Shuttle s = initShuttle();
 
@@ -32,6 +34,8 @@ public class OrbitApp implements SetupInterface {
 
         initGame(p,s);
     }
+    //EFFECTS: returns the planet chosen by the user, which is either
+    //         a generic planet, or a custom one they made themselves
 
     public Planet choosePlanet() {
         String chosenPlanet;
@@ -56,6 +60,8 @@ public class OrbitApp implements SetupInterface {
         }
         return p;
     }
+
+    //EFFECT: returns an ArrayList of the gravity, and tree values given by the user for their custom planet
 
     public ArrayList<Object> getSetupPlanet() {
         ArrayList<Object> values = new ArrayList<>();
@@ -84,6 +90,7 @@ public class OrbitApp implements SetupInterface {
 
     }
 
+    //EFFECT: returns the planet that the user created
     public Planet initPlanet() {
         Planet p = new Planet();
         input = new Scanner(System.in);
@@ -98,6 +105,8 @@ public class OrbitApp implements SetupInterface {
 
     }
 
+
+    //EFFECT: returns the name that the user wants their planet to have
     public String setPlanetName() {
         String name;
         System.out.println("what would you like the name of your planet to be?: ");
@@ -105,6 +114,7 @@ public class OrbitApp implements SetupInterface {
         return name;
     }
 
+    //EFFECT: returns an arrayList of what the user wants the initial velocities to be
     public ArrayList<Object> getSetupShuttle() {
         ArrayList<Object> values = new ArrayList<>();
 
@@ -120,6 +130,7 @@ public class OrbitApp implements SetupInterface {
 
         return values;
     }
+    //EFFECT: returns shuttle which is made by the user
 
     public Shuttle initShuttle() {
         Shuttle s = new Shuttle();
@@ -132,6 +143,7 @@ public class OrbitApp implements SetupInterface {
         return s;
     }
 
+    //EFFECT: makes game and runs shuttle simulation
     public void initGame(Planet p, Shuttle s) {
         s.setAccelY((int)p.getGravity() * -1);
         int x = 0;
