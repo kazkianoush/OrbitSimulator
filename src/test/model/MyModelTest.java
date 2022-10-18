@@ -27,7 +27,7 @@ class MyModelTest {
 
     @Test
     void testInit() {
-    //sets the values of planet a to the following and then tests them
+    //sets the values of planet to the following and then tests them
     a.setGravity(2);
     a.setTrees(true);
     a.setWater(true);

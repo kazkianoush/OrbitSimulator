@@ -8,14 +8,14 @@ import java.util.ArrayList;
 
 public class OrbitApp implements SetupInterface {
     private Scanner input;
-    private List<Planet> planetList;
+    private PlanetList planetList;
 
     //EFFECTS: generates generic planets that the user can
     //         choose from, and initiates a custom shuttle, planet, and initiates game
     public OrbitApp() {
         Shuttle s = initShuttle();
 
-        planetList = new ArrayList<>();
+        planetList = new PlanetList();
         Planet a = new Planet("Generic1", 3, true, true, 2);
         Planet b = new Planet("Generic2", 3, true, false, 2);
         Planet c = new Planet("Generic3", 3, false, true, 2);
@@ -41,12 +41,12 @@ public class OrbitApp implements SetupInterface {
         String chosenPlanet;
         Planet p = null;
         System.out.println("please choose one of the following planets or make your own.");
-        for (Planet planet : planetList) {
+        for (Planet planet : planetList.getList()) {
             System.out.println(planet.getName());
         }
         chosenPlanet = input.next();
 
-        for (Planet planet : planetList) {
+        for (Planet planet : planetList.getList()) {
             if (chosenPlanet.equals("new")) {
                 System.out.println("great choice!");
                 p = initPlanet();
