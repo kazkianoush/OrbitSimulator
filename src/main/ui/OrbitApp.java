@@ -80,9 +80,9 @@ public class OrbitApp implements SetupInterface {
 
     private PlanetList makePlanetList() {
         planetList = new PlanetList("List1");
-        Planet a = new Planet("Generic1", 3, true, true, 2);
-        Planet b = new Planet("Generic2", 3, true, false, 2);
-        Planet c = new Planet("Generic3", 3, false, true, 2);
+        Planet a = new Planet("Generic1", (float) 3, true, true, 2);
+        Planet b = new Planet("Generic2", (float)3.2, true, false, 2);
+        Planet c = new Planet("Generic3", (float)3.1, false, true, 2);
 
         planetList.add(a);
         planetList.add(b);
@@ -91,9 +91,9 @@ public class OrbitApp implements SetupInterface {
     }
 
     private ShuttleList makeShuttleList() {
-        Shuttle a = new Shuttle("SaturnI");
-        Shuttle b = new Shuttle("SaturnII");
-        Shuttle c = new Shuttle("SaturnIII");
+        Shuttle a = new Shuttle("SaturnI",3,4,4,4);
+        Shuttle b = new Shuttle("SaturnII",5,4,4,3);
+        Shuttle c = new Shuttle("SaturnIII",4,7,6,4);
         shuttleList = new ShuttleList("sList1");
         shuttleList.add(a);
         shuttleList.add(b);
@@ -247,7 +247,7 @@ public class OrbitApp implements SetupInterface {
         }
     }
 
-    private void saveGame() throws FileNotFoundException {
+    private void saveGame() {
         try {
             jsonWriterPlanet.open();
             jsonWriterPlanet.write(planetList);

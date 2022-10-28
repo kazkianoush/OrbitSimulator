@@ -4,7 +4,11 @@ package model;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 
 class MyModelTest {
@@ -20,23 +24,39 @@ class MyModelTest {
     public PlanetList planetList;
     public ShuttleList shuttleList;
 
+    public JsonReader planetReader;
+    public JsonReader shuttleReader;
+    public JsonWriter planetWriter;
+    public JsonWriter shuttleWriter;
+
+    private static final String JSON_PLANET_LOC = "./data/planetList.json";
+    private static final String JSON_SHUTTLE_LOC = "./data/shuttleList.json";
+
     // initiates Planet objects
     @BeforeEach
     void runBefore() {
+        planetReader = new JsonReader(JSON_PLANET_LOC);
+        planetWriter = new JsonWriter(JSON_PLANET_LOC);
+        shuttleReader = new JsonReader(JSON_SHUTTLE_LOC);
+        shuttleWriter = new JsonWriter(JSON_SHUTTLE_LOC);
+
         a = new Planet();
         b = new Planet("Generic 1",4,true,true,5);
-        c = new Shuttle();
-        d = new Shuttle();
+        c = new Shuttle("oops");
+        d = new Shuttle("brush");
         e = new Shuttle("lol");
         f = new Shuttle("ll2",3,3,3,3);
-        planetList = new PlanetList("tommy");
+
+        planetList = new PlanetList("List1");
         planetList.add(a);
         planetList.add(b);
-        shuttleList = new ShuttleList("bob");
+        shuttleList = new ShuttleList("sList1");
         shuttleList.add(c);
         shuttleList.add(d);
         shuttleList.add(e);
         shuttleList.add(f);
+
+
 
 
 
@@ -48,13 +68,39 @@ class MyModelTest {
      assertEquals(planetList.get(0), a);
      assertEquals(planetList.get(0),planetList.getList().get(0));
      assertEquals(planetList.size(),2);
-     assertEquals(planetList.getListName(),"tommy");
+     assertEquals(planetList.getListName(),"List1");
      planetList.toJson();
+     try {
+         planetWriter.open();
+         planetWriter.write(planetList);
+         planetWriter.close();
+         shuttleWriter.open();
+         shuttleWriter.write(shuttleList);
+         shuttleWriter.close();
 
-     assertEquals(shuttleList.get(0), c);
+     } catch (FileNotFoundException e) {
+         throw new RuntimeException(e);
+     }
+
+//     try {
+//         planetList = planetReader.readPlanets();
+//     } catch (IOException e) {
+//         throw new RuntimeException(e);
+//     }
+
+
+        assertEquals(shuttleList.get(0), c);
      assertEquals(shuttleList.get(0),shuttleList.getList().get(0));
-     assertEquals(shuttleList.getListName(),"bob");
+     assertEquals(shuttleList.getListName(),"sList1");
      shuttleList.toJson();
+
+
+        try {
+            shuttleList = shuttleReader.readShuttles();
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
     //sets the values of planet to the following and then tests them
     a.setGravity(2);

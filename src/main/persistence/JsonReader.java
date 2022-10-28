@@ -39,9 +39,6 @@ public class JsonReader {
         return shuttleList;
     }
 
-
-
-
     private PlanetList parsePlanetList(JSONObject jsonObject) {
         String name = jsonObject.getString("listName");
         PlanetList planetList = new PlanetList(name);
