@@ -14,6 +14,11 @@ class MyModelTest {
     public Planet b;
     public Shuttle c;
     public Shuttle d;
+    public Shuttle e;
+    public Shuttle f;
+
+    public PlanetList planetList;
+    public ShuttleList shuttleList;
 
     // initiates Planet objects
     @BeforeEach
@@ -22,11 +27,35 @@ class MyModelTest {
         b = new Planet("Generic 1",4,true,true,5);
         c = new Shuttle();
         d = new Shuttle();
+        e = new Shuttle("lol");
+        f = new Shuttle("ll2",3,3,3,3);
+        planetList = new PlanetList("tommy");
+        planetList.add(a);
+        planetList.add(b);
+        shuttleList = new ShuttleList("bob");
+        shuttleList.add(c);
+        shuttleList.add(d);
+        shuttleList.add(e);
+        shuttleList.add(f);
+
+
 
     }
 
     @Test
     void testInit() {
+     //testing planetList and shuttleList
+     assertEquals(planetList.get(0), a);
+     assertEquals(planetList.get(0),planetList.getList().get(0));
+     assertEquals(planetList.size(),2);
+     assertEquals(planetList.getListName(),"tommy");
+     planetList.toJson();
+
+     assertEquals(shuttleList.get(0), c);
+     assertEquals(shuttleList.get(0),shuttleList.getList().get(0));
+     assertEquals(shuttleList.getListName(),"bob");
+     shuttleList.toJson();
+
     //sets the values of planet to the following and then tests them
     a.setGravity(2);
     a.setTrees(true);
@@ -57,6 +86,12 @@ class MyModelTest {
     assertEquals(c.getAccelX(),2);
     c.setCor(2,5);
     assertEquals(c.getCor()[0], 2);
+
+    a.toJSon();
+    f.setName("bean");
+    assertEquals("bean", f.getName());
+    d.toJSon();
+
 
     }
 }
