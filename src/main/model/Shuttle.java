@@ -34,12 +34,6 @@ public class Shuttle {
     }
 
 
-    public Shuttle() {
-        this.xcor = 0;
-        this.ycor = 0;
-        this.accelX = 0;
-        this.accelY = 0;
-    }
 
     public void setCor(int newX, int newY) {
         this.xcor = newX;

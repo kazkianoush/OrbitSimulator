@@ -199,7 +199,7 @@ public class OrbitApp implements SetupInterface {
     //EFFECT: returns shuttle which is made by the user
 
     public Shuttle initShuttle() {
-        Shuttle s = new Shuttle();
+        Shuttle s = new Shuttle("base");
         input = new Scanner(System.in);
         ArrayList<Object> values = getSetupShuttle();
         s.setAccelX((int)values.get(0));

@@ -82,11 +82,11 @@ class MyModelTest {
          throw new RuntimeException(e);
      }
 
-//     try {
-//         planetList = planetReader.readPlanets();
-//     } catch (IOException e) {
-//         throw new RuntimeException(e);
-//     }
+     try {
+         planetList = planetReader.readPlanets();
+     } catch (IOException e) {
+         throw new RuntimeException(e);
+     }
 
 
         assertEquals(shuttleList.get(0), c);
