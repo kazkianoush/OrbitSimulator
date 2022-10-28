@@ -1,5 +1,7 @@
 package model;
 
+import org.json.JSONObject;
+
 public class Planet {
     private float gravity;
     private boolean trees;
@@ -68,5 +70,16 @@ public class Planet {
 
     public int getRadius() {
         return this.radius;
+    }
+
+    public JSONObject toJSon() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("trees", trees);
+        json.put("water", water);
+        json.put("radius", radius);
+        json.put("gravity", gravity);
+
+        return json;
     }
 }

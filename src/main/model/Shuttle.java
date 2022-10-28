@@ -1,6 +1,8 @@
 package model;
 
 
+import org.json.JSONObject;
+
 // Represents a shuttle object, with an x coordinate, y coordinate, y acceleration, and x acceleration
 public class Shuttle {
 //    private int[] velocity;
@@ -11,8 +13,27 @@ public class Shuttle {
 
     private int accelX; // x acceleration of the shuttle
 
+    private String name;
+
 
     // EFFECT: constructs Shuttle given no arguments
+    public Shuttle(String name) {
+        this.name = name;
+        this.xcor = 0;
+        this.ycor = 0;
+        this.accelX = 0;
+        this.accelY = 0;
+    }
+
+    public Shuttle(String name, int xcor, int ycor, int accelX, int accelY) {
+        this.name = name;
+        this.xcor = xcor;
+        this.ycor = ycor;
+        this.accelX = accelX;
+        this.accelY = accelY;
+    }
+
+
     public Shuttle() {
         this.xcor = 0;
         this.ycor = 0;
@@ -27,6 +48,14 @@ public class Shuttle {
 
     public int[] getCor() {
         return new int[]{this.xcor, this.ycor};
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getAccelX() {
@@ -45,6 +74,17 @@ public class Shuttle {
         this.accelY = accelY;
     }
 
+    public JSONObject toJSon() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("accelX",accelX);
+        json.put("accelY", accelY);
+        json.put("xcor", xcor);
+        json.put("ycor",ycor);
+
+
+        return json;
+    }
 
 
 }

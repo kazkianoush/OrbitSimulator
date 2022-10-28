@@ -1,38 +1,104 @@
 package ui;
 
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 import model.*;
+import persistence.JsonWriter;
+import persistence.JsonReader;
+
 import java.util.ArrayList;
 
 public class OrbitApp implements SetupInterface {
     private Scanner input;
     private PlanetList planetList;
+    private ShuttleList shuttleList;
+
+    private static final String JSON_PLANET_LOC = "./data/planetList.json";
+    private static final String JSON_SHUTTLE_LOC = "./data/shuttleList.json";
+
+    private JsonWriter jsonWriterPlanet;
+    private JsonWriter jsonWriterShuttle;
+    private JsonReader jsonReaderShuttle;
+    private JsonReader jsonReaderPlanet;
 
     //EFFECTS: generates generic planets that the user can
     //         choose from, and initiates a custom shuttle, planet, and initiates game
     public OrbitApp() {
-        Shuttle s = initShuttle();
+        jsonWriterPlanet = new JsonWriter(JSON_PLANET_LOC);
+        jsonWriterShuttle = new JsonWriter(JSON_SHUTTLE_LOC);
+        jsonReaderPlanet = new JsonReader(JSON_PLANET_LOC);
+        jsonReaderShuttle = new JsonReader(JSON_SHUTTLE_LOC);
 
-        planetList = new PlanetList();
+        input = new Scanner(System.in);
+        shuttleList = makeShuttleList();
+        planetList = makePlanetList();
+        System.out.println("would you like to load your previous file?(yes/no)");
+        String answer = input.next();
+        if (answer.equals("yes")) {
+            loadPlanetList();
+            loadShuttleList();
+        }
+        Shuttle s = chooseShuttle();
+        Planet p = choosePlanet();
+        try {
+            initGame(p, s);
+        } catch (InterruptedException e) {
+            System.out.print("e");
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+
+    private Shuttle chooseShuttle() {
+        String chooseShuttle;
+        Shuttle ns = null;
+        System.out.println("please choose one of the following shuttles or make your own(new).");
+        for (Shuttle s : shuttleList.getList()) {
+            System.out.println(s.getName());
+        }
+        chooseShuttle = input.next();
+
+        for (Shuttle shuttle : shuttleList.getList()) {
+            if (chooseShuttle.equals("new")) {
+                System.out.println("great choice!");
+                ns = initShuttle();
+                shuttleList.add(ns);
+                break;
+            }
+            if (shuttle.getName().equals(chooseShuttle)) {
+                System.out.println("great!, you have chosen planet: " + shuttle.getName());
+                return shuttle;
+            }
+        }
+        return ns;
+    }
+
+    private PlanetList makePlanetList() {
+        planetList = new PlanetList("List1");
         Planet a = new Planet("Generic1", 3, true, true, 2);
         Planet b = new Planet("Generic2", 3, true, false, 2);
         Planet c = new Planet("Generic3", 3, false, true, 2);
-        Planet d = new Planet("Generic4", 3, false, false, 2);
 
         planetList.add(a);
         planetList.add(b);
         planetList.add(c);
-        planetList.add(d);
+        return planetList;
+    }
 
-        Planet p = choosePlanet();
-
-        System.out.println(planetList.get(planetList.size() - 1).getName());
-
-
-
-        initGame(p,s);
+    private ShuttleList makeShuttleList() {
+        Shuttle a = new Shuttle("SaturnI");
+        Shuttle b = new Shuttle("SaturnII");
+        Shuttle c = new Shuttle("SaturnIII");
+        shuttleList = new ShuttleList("sList1");
+        shuttleList.add(a);
+        shuttleList.add(b);
+        shuttleList.add(c);
+        return shuttleList;
     }
     //EFFECTS: returns the planet chosen by the user, which is either
     //         a generic planet, or a custom one they made themselves
@@ -40,7 +106,7 @@ public class OrbitApp implements SetupInterface {
     public Planet choosePlanet() {
         String chosenPlanet;
         Planet p = null;
-        System.out.println("please choose one of the following planets or make your own.");
+        System.out.println("please choose one of the following planets or make your own(new).");
         for (Planet planet : planetList.getList()) {
             System.out.println(planet.getName());
         }
@@ -118,15 +184,15 @@ public class OrbitApp implements SetupInterface {
     public ArrayList<Object> getSetupShuttle() {
         ArrayList<Object> values = new ArrayList<>();
 
-//        while (true) {
-        System.out.println("what would you like the initial x velocity to be?");
+        System.out.println("what would you like the name of your shuttle to be?");
+        String name = input.next();
+        System.out.println("what would you like the initial x acceleration to be?");
         int velocityX = input.nextInt();
-        System.out.println("what would you like the initial y velocity to be?");
+        System.out.println("what would you like the initial y acceleration to be?");
         int velocityY = input.nextInt();
         values.add(velocityX);
         values.add(velocityY);
-//          break;
-//        }
+        values.add(name);
 
         return values;
     }
@@ -138,31 +204,80 @@ public class OrbitApp implements SetupInterface {
         ArrayList<Object> values = getSetupShuttle();
         s.setAccelX((int)values.get(0));
         s.setAccelY((int)values.get(1));
+        s.setName((String)values.get(2));
         System.out.println((int)values.get(0));
         System.out.println((int)values.get(1));
+        System.out.println((String)values.get(2));
         return s;
     }
 
     //EFFECT: makes game and runs shuttle simulation
-    public void initGame(Planet p, Shuttle s) {
+    public void initGame(Planet p, Shuttle s) throws InterruptedException, FileNotFoundException {
         s.setAccelY((int)p.getGravity() * -1);
         int x = 0;
         int y = 200;
-        System.out.println("when you are ready, type a number!");
+        System.out.println("when you are ready, type a number! (you can stop any time by typing \"s\")");
         input.nextInt();
         s.setCor(x,y);
+//        for (int i = 0; i < 500; i++) {
+//            Thread.sleep(1000);
+//            s.setCor(x,s.getAccelY() + s.getCor()[1]);
+//            if (s.getCor()[1] <= p.getRadius()) {
+//                System.out.println("we hit the ground");
+//                s.setAccelY(s.getAccelY() * -1);
+//            }
+//
+//            s.setCor(x,s.getCor()[1] + s.getAccelY());
+//            s.setAccelY(s.getAccelY() + (int)p.getGravity() * -1);
+//            System.out.println("xcor: " + s.getCor()[0] + "  ycor: " + s.getCor()[1]);
+//
+//        }
+        System.out.println("would you like to save your planet and shuttle? ");
+        String answer = input.next();
+        if (answer.equals("yes")) {
+            saveGame();
+        }
+    }
 
-        for (int i = 0; i < 500; i++) {
-            s.setCor(x,s.getAccelY() + s.getCor()[1]);
-            if (s.getCor()[1] <= p.getRadius()) {
-                System.out.println("we hit the ground");
-                s.setAccelY(s.getAccelY() * -1);
-            }
+    public void printPlanetList() {
+        List<Planet> planets = planetList.getList();
 
-            s.setCor(x,s.getCor()[1] + s.getAccelY());
-            s.setAccelY(s.getAccelY() + (int)p.getGravity() * -1);
-            System.out.println("xcor: " + s.getCor()[0] + "  ycor: " + s.getCor()[1]);
+        for (Planet p : planets) {
+            System.out.println(p);
+        }
+    }
 
+    private void saveGame() throws FileNotFoundException {
+        try {
+            jsonWriterPlanet.open();
+            jsonWriterPlanet.write(planetList);
+            jsonWriterPlanet.close();
+            jsonWriterShuttle.open();
+            jsonWriterShuttle.write(shuttleList);
+            jsonWriterShuttle.close();
+            System.out.println("saved: " + planetList.getListName() + " to " + JSON_PLANET_LOC);
+            System.out.println(shuttleList.getListName() + " to " + JSON_SHUTTLE_LOC);
+        } catch (FileNotFoundException e) {
+            System.out.println("couldn't find file" + JSON_PLANET_LOC);
+        }
+    }
+
+    private void loadPlanetList() {
+        try {
+            planetList = jsonReaderPlanet.readPlanets();
+            System.out.println("loaded" + planetList.getListName() + "From: " + JSON_PLANET_LOC);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void loadShuttleList() {
+        try {
+            shuttleList = jsonReaderShuttle.readShuttles();
+            System.out.println("loaded" + shuttleList.getListName() + "From: " + JSON_SHUTTLE_LOC);
+
+        } catch (IOException e) {
+            throw new RuntimeException();
         }
     }
 
