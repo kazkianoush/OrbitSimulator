@@ -24,8 +24,8 @@ public class OrbitApp implements SetupInterface {
     private JsonReader jsonReaderShuttle;
     private JsonReader jsonReaderPlanet;
 
-    //EFFECTS: generates generic planets that the user can
-    //         choose from, and initiates a custom shuttle, planet, and initiates game
+    //EFFECTS: initiates Json readers and writers, asks whether you want to load previous file or not
+    //         then proceeds with the game
     public OrbitApp() {
         jsonWriterPlanet = new JsonWriter(JSON_PLANET_LOC);
         jsonWriterShuttle = new JsonWriter(JSON_SHUTTLE_LOC);
@@ -54,6 +54,7 @@ public class OrbitApp implements SetupInterface {
 
 
 
+    //EFFECTS: gives you a prompt to either choose a shuttle or make a new one
     private Shuttle chooseShuttle() {
         String chooseShuttle;
         Shuttle ns = null;
@@ -71,13 +72,15 @@ public class OrbitApp implements SetupInterface {
                 break;
             }
             if (shuttle.getName().equals(chooseShuttle)) {
-                System.out.println("great!, you have chosen planet: " + shuttle.getName());
+                System.out.println("great!, you have chosen shuttle: " + shuttle.getName());
                 return shuttle;
             }
         }
         return ns;
     }
 
+
+    //EFFECT:  makes generic planet list
     private PlanetList makePlanetList() {
         planetList = new PlanetList("List1");
         Planet a = new Planet("Generic1", (float) 3, true, true, 2);
@@ -90,6 +93,7 @@ public class OrbitApp implements SetupInterface {
         return planetList;
     }
 
+    //EFFECTS:  makes generic shuttle list
     private ShuttleList makeShuttleList() {
         Shuttle a = new Shuttle("SaturnI",3,4,4,4);
         Shuttle b = new Shuttle("SaturnII",5,4,4,3);
@@ -180,7 +184,7 @@ public class OrbitApp implements SetupInterface {
         return name;
     }
 
-    //EFFECT: returns an arrayList of what the user wants the initial velocities to be
+    //EFFECT: returns an arrayList of what the user wants the initial velocities to be + the name of the shuttle
     public ArrayList<Object> getSetupShuttle() {
         ArrayList<Object> values = new ArrayList<>();
 
@@ -196,8 +200,8 @@ public class OrbitApp implements SetupInterface {
 
         return values;
     }
-    //EFFECT: returns shuttle which is made by the user
 
+    //EFFECT: returns shuttle which is made by the user
     public Shuttle initShuttle() {
         Shuttle s = new Shuttle("base");
         input = new Scanner(System.in);
@@ -211,7 +215,7 @@ public class OrbitApp implements SetupInterface {
         return s;
     }
 
-    //EFFECT: makes game and runs shuttle simulation
+    //EFFECT: makes game and runs shuttle simulation, asks whether you want to save shuttle or not.
     public void initGame(Planet p, Shuttle s) throws InterruptedException, FileNotFoundException {
         s.setAccelY((int)p.getGravity() * -1);
         int x = 0;
@@ -247,6 +251,9 @@ public class OrbitApp implements SetupInterface {
         }
     }
 
+
+    //EFFECT:  saves game
+    //code based on JsonSerializationDemo
     private void saveGame() {
         try {
             jsonWriterPlanet.open();
@@ -262,6 +269,9 @@ public class OrbitApp implements SetupInterface {
         }
     }
 
+    //EFFECT: loads planets
+
+    //code based on JsonSerializationDemo
     private void loadPlanetList() {
         try {
             planetList = jsonReaderPlanet.readPlanets();
@@ -271,6 +281,8 @@ public class OrbitApp implements SetupInterface {
         }
     }
 
+    //EFFECT: loads shuttles
+    //code based on JsonSerializationDemo
     private void loadShuttleList() {
         try {
             shuttleList = jsonReaderShuttle.readShuttles();

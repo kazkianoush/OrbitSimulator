@@ -70,6 +70,7 @@ class MyModelTest {
      assertEquals(planetList.size(),2);
      assertEquals(planetList.getListName(),"List1");
      planetList.toJson();
+     //testing json operations
      try {
          planetWriter.open();
          planetWriter.write(planetList);

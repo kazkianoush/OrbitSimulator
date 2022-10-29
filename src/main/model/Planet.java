@@ -72,6 +72,8 @@ public class Planet {
         return this.radius;
     }
 
+    //EFFECT: turns Planet object into Json object
+    //code based on JsonSerializationDemo
     public JSONObject toJSon() {
         JSONObject json = new JSONObject();
         json.put("name", name);

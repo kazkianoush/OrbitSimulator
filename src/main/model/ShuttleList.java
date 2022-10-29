@@ -14,6 +14,7 @@ public class ShuttleList  implements Writable {
         this.shuttleList = new ArrayList<>();
     }
 
+    //EFFECT: adds given shuttle to shuttleList
     public void add(Shuttle e) {
         this.shuttleList.add(e);
     }
@@ -30,6 +31,8 @@ public class ShuttleList  implements Writable {
         return this.shuttleListName;
     }
 
+    //EFFECT: turns a given shuttle in shuttleList into Json object
+    //code based on JsonSerializationDemo
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("listName", shuttleListName);
@@ -37,6 +40,7 @@ public class ShuttleList  implements Writable {
         return json;
     }
 
+    //EFFECT: turns shuttleList object into Json object
     private JSONArray shuttleListJson() {
         JSONArray jsonArray = new JSONArray();
         for (Shuttle s : shuttleList) {

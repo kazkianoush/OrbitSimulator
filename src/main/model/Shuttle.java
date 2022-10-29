@@ -68,6 +68,8 @@ public class Shuttle {
         this.accelY = accelY;
     }
 
+    //EFFECT: turns a shuttle object into json object
+    //code based on JsonSerializationDemo
     public JSONObject toJSon() {
         JSONObject json = new JSONObject();
         json.put("name", name);

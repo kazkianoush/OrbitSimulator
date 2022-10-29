@@ -37,6 +37,8 @@ public class PlanetList implements Writable {
         return this.listName;
     }
 
+    //EFFECT: turns PlanetList object into Json object
+    //code based on JsonSerializationDemo
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
@@ -45,6 +47,8 @@ public class PlanetList implements Writable {
         return json;
     }
 
+    //EFFECT: turns a given planet in planetList into a json object
+    //code based on JsonSerializationDemo
     private JSONArray planetListJson() {
         JSONArray jsonArray = new JSONArray();
         for (Planet p : planetList) {
