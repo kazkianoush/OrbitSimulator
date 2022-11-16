@@ -1,6 +1,11 @@
 package ui;
 
 
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
@@ -9,9 +14,17 @@ import model.*;
 import persistence.JsonWriter;
 import persistence.JsonReader;
 
+import javax.swing.*;
+import javax.swing.plaf.basic.BasicTreeUI;
 import java.util.ArrayList;
+import java.util.logging.Handler;
 
-public class OrbitApp implements SetupInterface {
+public class OrbitApp extends JFrame implements SetupInterface {
+
+    private GUI gui;
+
+    private DrawShuttle drawShuttle;
+    private DrawPlanet drawPlanet;
     private Scanner input;
     private PlanetList planetList;
     private ShuttleList shuttleList;
@@ -27,20 +40,8 @@ public class OrbitApp implements SetupInterface {
     //EFFECTS: initiates Json readers and writers, asks whether you want to load previous file or not
     //         then proceeds with the game
     public OrbitApp() {
-        jsonWriterPlanet = new JsonWriter(JSON_PLANET_LOC);
-        jsonWriterShuttle = new JsonWriter(JSON_SHUTTLE_LOC);
-        jsonReaderPlanet = new JsonReader(JSON_PLANET_LOC);
-        jsonReaderShuttle = new JsonReader(JSON_SHUTTLE_LOC);
-
-        input = new Scanner(System.in);
-        shuttleList = makeShuttleList();
-        planetList = makePlanetList();
-        System.out.println("would you like to load your previous file?(yes/no)");
-        String answer = input.next();
-        if (answer.equals("yes")) {
-            loadPlanetList();
-            loadShuttleList();
-        }
+        super("orbitApp");
+        setupJson();
         Shuttle s = chooseShuttle();
         Planet p = choosePlanet();
         try {
@@ -50,8 +51,49 @@ public class OrbitApp implements SetupInterface {
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
+        makeGui(s,p);
+
     }
 
+    private void makeGui(Shuttle s, Planet p) {
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setUndecorated(false);
+        gui = new GUI(s,p);
+        drawShuttle = new DrawShuttle(gui);
+        add(drawShuttle);
+        addKeyListener(new KeyHandler());
+        pack();
+        centreOnScreen();
+        setVisible(true);
+        addTimer();
+    }
+
+    private void addTimer() {
+        Timer t = new Timer(10, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                gui.update();
+                drawShuttle.repaint();
+            }
+        });
+        t.start();
+    }
+
+    private void setupJson() {
+        jsonWriterPlanet = new JsonWriter(JSON_PLANET_LOC);
+        jsonWriterShuttle = new JsonWriter(JSON_SHUTTLE_LOC);
+        jsonReaderPlanet = new JsonReader(JSON_PLANET_LOC);
+        jsonReaderShuttle = new JsonReader(JSON_SHUTTLE_LOC);
+        input = new Scanner(System.in);
+        shuttleList = makeShuttleList();
+        planetList = makePlanetList();
+        System.out.println("would you like to load your previous file?(yes/no)");
+        String answer = input.next();
+        if (answer.equals("yes")) {
+            loadPlanetList();
+            loadShuttleList();
+        }
+    }
 
 
     //EFFECTS: gives you a prompt to either choose a shuttle or make a new one
@@ -169,10 +211,18 @@ public class OrbitApp implements SetupInterface {
         ArrayList<Object> values = getSetupPlanet();
         p.setGravity((float)(values.get(0)));
         p.setTrees((boolean)values.get(1));
+        p.setRadius(getRadius());
         System.out.println(p.getGravity());
         System.out.println(p.getTrees());
         return p;
 
+    }
+
+    private int getRadius() {
+        int radius;
+        System.out.println("what would you like the radius of your planet to be?");
+        radius = input.nextInt();
+        return radius;
     }
 
 
@@ -293,6 +343,17 @@ public class OrbitApp implements SetupInterface {
         }
     }
 
+    private class KeyHandler extends KeyAdapter {
+        @Override
+        public void keyPressed(KeyEvent e) {
+            gui.keyPressed(e.getKeyCode());
+        }
+    }
+
+    private void centreOnScreen() {
+        Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+        setLocation((screen.width - getWidth()) / 2, (screen.height - getHeight()) / 2);
+    }
 
 
 }

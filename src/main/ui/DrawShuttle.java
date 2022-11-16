@@ -1,15 +1,16 @@
 package ui;
 
+import model.Planet;
 import model.Shuttle;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.Color.*;
 
-public class DrawPlanet extends JPanel {
+public class DrawShuttle extends JPanel {
+
     private GUI gui;
 
-    public DrawPlanet(GUI g) {
+    public DrawShuttle(GUI g) {
         setPreferredSize(new Dimension(gui.WIDTH, gui.HEIGHT));
         this.gui = g;
     }
@@ -21,6 +22,16 @@ public class DrawPlanet extends JPanel {
 
     public void drawGame(Graphics g) {
         drawShuttle(g);
+        drawPlanet(g);
+    }
+
+    private void drawPlanet(Graphics g) {
+        Planet p = gui.getPlanet();
+        Color color = Color.GREEN;
+        g.setColor(color);
+        g.fillOval((gui.WIDTH / 2) - p.getRadius() / 2,(gui.HEIGHT / 2)
+                - p.getRadius() / 2,p.getRadius(),p.getRadius());
+        g.setColor(color);
     }
 
     private void drawShuttle(Graphics g) {

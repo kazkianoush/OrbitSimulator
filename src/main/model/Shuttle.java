@@ -2,10 +2,21 @@ package model;
 
 
 import org.json.JSONObject;
+import ui.GUI;
+
+import javax.swing.*;
+import java.awt.*;
 
 // Represents a shuttle object, with an x coordinate, y coordinate, y acceleration, and x acceleration
-public class Shuttle {
+public class Shuttle extends JComponent {
 //    private int[] velocity;
+
+
+    private static int DX = 1;
+
+    private static  int DY = 1;
+
+    private static final int GRAVITY =  5;
     private int xcor;  // x coordinate of the shuttle
     private int ycor;  // y coordinate of the shuttle
 
@@ -14,6 +25,7 @@ public class Shuttle {
     private int accelX; // x acceleration of the shuttle
 
     private String name;
+    private int direction;
 
 
     // EFFECT: constructs Shuttle given no arguments
@@ -23,6 +35,7 @@ public class Shuttle {
         this.ycor = 0;
         this.accelX = 0;
         this.accelY = 0;
+        this.direction = 0;
     }
 
     public Shuttle(String name, int xcor, int ycor, int accelX, int accelY) {
@@ -31,6 +44,7 @@ public class Shuttle {
         this.ycor = ycor;
         this.accelX = accelX;
         this.accelY = accelY;
+        this.direction = 0;
     }
 
 
@@ -38,6 +52,69 @@ public class Shuttle {
     public void setCor(int newX, int newY) {
         this.xcor = newX;
         this.ycor = newY;
+    }
+
+    public void faceRight() {
+        direction = 1;
+    }
+
+    public void faceLeft() {
+        direction = -1;
+    }
+
+    public void faceUp() {
+        direction = -2;
+    }
+
+    public void faceDown() {
+        direction = 2;
+    }
+
+
+    @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
+    public void move(Planet p, GUI gui) {
+        int x2 = (gui.WIDTH / 2);
+        int y2 = (gui.HEIGHT / 2);
+        if (Math.abs(Math.sqrt(Math.pow(ycor - y2,2) + Math.pow(xcor - x2,2))) < 200) {
+            double angle = Math.atan2((y2 - ycor), (x2 - xcor));
+            System.out.println("angle: " + angle);
+            xcor -= Math.cos(angle) * GRAVITY;
+            System.out.println(Math.cos(angle) * GRAVITY);
+            ycor -= Math.sin(angle) * GRAVITY;
+            if (Math.abs(Math.sqrt(Math.pow(ycor - y2,2) + Math.pow(xcor - x2,2))) < 300) {
+                if (Math.cos(angle) * GRAVITY > 0) {
+                    xcor -= Math.cos(angle) * GRAVITY;
+                }
+                if (Math.cos(angle) * GRAVITY < 0) {
+                    xcor -= Math.cos(angle) * GRAVITY;
+                }
+                if (Math.sin(angle) * GRAVITY < 0) {
+                    ycor -= Math.sin(angle) * GRAVITY;
+                }
+                if (Math.sin(angle) * GRAVITY > 0) {
+                    ycor -= Math.sin(angle) * GRAVITY;
+                }
+
+            }
+
+        } else if (direction == 2 || direction == -2) {
+            DX = 1;
+            DY = 1;
+            ycor = ycor + DY * (direction / 2);
+
+        } else {
+            DX = 1;
+            DY = 1;
+            xcor = xcor + DX * (direction);
+        }
+    }
+
+    public void flipX() {
+        direction *= -1;
+    }
+
+    public void flipY() {
+        direction *= -1;
     }
 
     public int[] getCor() {
