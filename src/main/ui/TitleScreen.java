@@ -73,7 +73,6 @@ public class TitleScreen extends JFrame {
         setLocation((screen.width - getWidth()) / 2, (screen.height - getHeight()) / 2);
     }
 
-    @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     private void createPanel1() {
         if (firstTime) {
             JPanel popUp = new JPanel();
@@ -81,6 +80,11 @@ public class TitleScreen extends JFrame {
             loadFile = JOptionPane.showConfirmDialog(null, popUp);
             setupJson(loadFile);
         }
+        part2();
+
+    }
+
+    private void part2() {
         panel = new JPanel();
         panel.setLayout(new GridLayout(0, 1));
         panel.setSize(new Dimension(30, 30));
@@ -97,7 +101,6 @@ public class TitleScreen extends JFrame {
         PlanetButton delete = new PlanetButton(this, panel, new Planet("delete",
                 2, false, false, 0));
         firstTime = false;
-
     }
 
     public void resetPanel(JPanel panel) {
@@ -152,7 +155,6 @@ public class TitleScreen extends JFrame {
         return shuttleList;
     }
 
-    @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     public void setActivePlanet(PlanetButton planetButton) {
         if (planetButton.planet.getName().equals("delete")) {
             removePlanetButton();
@@ -174,6 +176,21 @@ public class TitleScreen extends JFrame {
 
 
         }
+        checkIf(planetButton);
+    }
+
+    public void setActivePlanet(OwnPlanetSurvey planetSurvey) throws InterruptedException {
+        Planet planetToAdd = planetSurvey.getPlanet();
+        resetPanel(panel);
+        Thread.sleep(1000);
+        System.out.println(planetSubmitted + " 2 " + shuttleSubmitted);
+
+        if (planetSubmitted && shuttleSubmitted) {
+            nextStep();
+        }
+    }
+
+    private void checkIf(PlanetButton planetButton) {
         if (activePlanet != null) {
             activePlanet.deactivate();
         }
@@ -187,16 +204,8 @@ public class TitleScreen extends JFrame {
         }
     }
 
-    public void setActivePlanet(OwnPlanetSurvey planetSurvey) throws InterruptedException {
-        Planet planetToAdd = planetSurvey.getPlanet();
-        resetPanel(panel);
-        Thread.sleep(1000);
-        System.out.println(planetSubmitted + " 2 " + shuttleSubmitted);
 
-        if (planetSubmitted && shuttleSubmitted) {
-            nextStep();
-        }
-    }
+
 
     private void removePlanetButton() {
         activePlanet.removeButton();
@@ -227,7 +236,6 @@ public class TitleScreen extends JFrame {
 //        OrbitApp app = new OrbitApp(this);
     }
 
-    @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     public void setActiveShuttle(ShuttleButton shuttleButton) {
         if (shuttleButton.shuttle.getName().equals("delete")) {
             removeShuttleButton();
@@ -235,19 +243,31 @@ public class TitleScreen extends JFrame {
         if (shuttleButton.shuttle.getName().equals("submit")) {
             if (activeShuttle.shuttle.getName().equals("new")) {
                 OwnShuttleSurvey shuttleSurvey = new OwnShuttleSurvey(this);
-//                shuttleButton.removeButton();
             } else {
                 chosenShuttle = activeShuttle.shuttle;
                 shuttleButton.removeButton();
                 shuttleSubmitted = true;
-                System.out.println(planetSubmitted + " 3 " + shuttleSubmitted);
-
                 if (planetSubmitted && shuttleSubmitted) {
                     nextStep();
                 }
             }
 
         }
+        checkIfs(shuttleButton);
+    }
+
+    public void setActiveShuttle(OwnShuttleSurvey shuttleSurvey) throws InterruptedException {
+        Shuttle shuttleToAdd = shuttleSurvey.getShuttle();
+        resetPanel2(panel2);
+        Thread.sleep(1000);
+        System.out.println(planetSubmitted + "4 " + shuttleSubmitted);
+
+        if (planetSubmitted && shuttleSubmitted) {
+            nextStep();
+        }
+    }
+
+    private void checkIfs(ShuttleButton shuttleButton) {
         if (activeShuttle != null) {
             activeShuttle.deactivate();
         }
@@ -261,16 +281,7 @@ public class TitleScreen extends JFrame {
         }
     }
 
-    public void setActiveShuttle(OwnShuttleSurvey shuttleSurvey) throws InterruptedException {
-        Shuttle shuttleToAdd = shuttleSurvey.getShuttle();
-        resetPanel2(panel2);
-        Thread.sleep(1000);
-        System.out.println(planetSubmitted + "4 " + shuttleSubmitted);
 
-        if (planetSubmitted && shuttleSubmitted) {
-            nextStep();
-        }
-    }
 
     private void setupJson(int loadFile) {
         jsonWriterPlanet = new JsonWriter(JSON_PLANET_LOC);

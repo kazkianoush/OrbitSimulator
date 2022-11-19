@@ -1,7 +1,6 @@
 package ui;
 
 import model.Planet;
-import model.Shuttle;
 
 import javax.swing.*;
 import java.awt.*;
@@ -48,7 +47,6 @@ public class OwnPlanetSurvey extends JFrame {
         setLocation((screen.width - getWidth()) / 2, (screen.height - getHeight()) / 2);
     }
 
-    @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     private void createPanel1() {
         JPanel panel = new JPanel();
         panel.add(new JLabel("<html><p>please enter a name for "
@@ -56,50 +54,34 @@ public class OwnPlanetSurvey extends JFrame {
         JTextField name = new JTextField(15);
         panel.add(name);
         fields.add(name);
-//        name.addActionListener(new java.awt.event.ActionListener() {
-//            public void actionPerformed(ActionEvent e) {
-//                planetName = name.getText();
-//            }
-//        });
+
         panel.add(new JLabel("please enter the gravity of your planet: "));
         JTextField gravity = new JTextField(15);
         fields.add(gravity);
-//        gravity.addActionListener(new java.awt.event.ActionListener() {
-//            public void actionPerformed(ActionEvent e) {
-//                gravity1 = Integer.parseInt(gravity.getText());
-//            }
-//        });
+
         panel.add(gravity);
         panel.add(new JLabel("does your planet have trees?: "));
         JTextField trees = new JTextField(20);
         fields.add(trees);
-//        trees.addActionListener(new java.awt.event.ActionListener() {
-//            public void actionPerformed(ActionEvent e) {
-//                trees1 = trees.getText() == "yes";
-//            }
-//        });
+
         panel.add(trees);
         panel.add(new JLabel("does your planet have water?: "));
         JTextField water = new JTextField(15);
         fields.add(water);
-//        water.addActionListener(new java.awt.event.ActionListener() {
-//            public void actionPerformed(ActionEvent e) {
-//                water1 = water.getText() == "yes";
-//            }
-//        });
+
+        addOtherHalf(panel,water);
+
+    }
+
+    private void addOtherHalf(JPanel panel, JTextField water) {
         panel.add(water);
         panel.add(new JLabel("what is the radius of your planet?: "));
         JTextField radius = new JTextField(15);
         fields.add(radius);
-//        radius.addActionListener(new java.awt.event.ActionListener() {
-//            public void actionPerformed(ActionEvent e) {
-//                radius1 = Integer.parseInt(radius.getText());
-//            }
-//        });
+
         panel.add(radius);
 
         panel.add(new JLabel("click this button once you are done choosing."));
-//        ShuttleButton submit1 = new ShuttleButton(new TitleScreen(),panel, new Shuttle("submit1",0,0,0,0),this);
         JButton submit = new JButton("submit");
         submit.setBorderPainted(true);
         submit.setFocusPainted(true);
@@ -107,7 +89,6 @@ public class OwnPlanetSurvey extends JFrame {
         panel.add(submit);
         submit.addActionListener(new PlanetSurveyListener());
         add(panel);
-
     }
 
     private class PlanetSurveyListener implements ActionListener {
@@ -141,7 +122,7 @@ public class OwnPlanetSurvey extends JFrame {
         return this.planet;
     }
 
-    public void getanswer(ShuttleButton shuttleButton) {
+    public void getAnswer(ShuttleButton shuttleButton) {
         if (shuttleButton.shuttle.getName().equals("submit1")) {
             shuttleButton.getplanetInfo(this);
         }

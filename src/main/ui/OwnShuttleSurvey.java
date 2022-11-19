@@ -46,7 +46,6 @@ public class OwnShuttleSurvey extends JFrame {
         setLocation((screen.width - getWidth()) / 2, (screen.height - getHeight()) / 2);
     }
 
-    @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     private void createPanel1() {
         JPanel panel = new JPanel();
         panel.add(new JLabel("<html><p>please enter a name for "
@@ -54,46 +53,31 @@ public class OwnShuttleSurvey extends JFrame {
         JTextField name = new JTextField(15);
         panel.add(name);
         fields.add(name);
-//        name.addActionListener(new java.awt.event.ActionListener() {
-//            public void actionPerformed(ActionEvent e) {
-//                planetName = name.getText();
-//            }
-//        });
+
         panel.add(new JLabel("please enter the x coordinate of your shuttle: "));
         JTextField xcor = new JTextField(15);
         fields.add(xcor);
-//        gravity.addActionListener(new java.awt.event.ActionListener() {
-//            public void actionPerformed(ActionEvent e) {
-//                gravity1 = Integer.parseInt(gravity.getText());
-//            }
-//        });
+
         panel.add(xcor);
         panel.add(new JLabel("please enter the y coordinate of your shuttle: "));
         JTextField ycor = new JTextField(20);
         fields.add(ycor);
-//        trees.addActionListener(new java.awt.event.ActionListener() {
-//            public void actionPerformed(ActionEvent e) {
-//                trees1 = trees.getText() == "yes";
-//            }
-//        });
+
         panel.add(ycor);
         panel.add(new JLabel("pleas enter the x acceleration of your shuttle: "));
+        part2(panel);
+
+    }
+
+    private void part2(JPanel panel) {
         JTextField accelX = new JTextField(15);
         fields.add(accelX);
-//        water.addActionListener(new java.awt.event.ActionListener() {
-//            public void actionPerformed(ActionEvent e) {
-//                water1 = water.getText() == "yes";
-//            }
-//        });
+
         panel.add(accelX);
         panel.add(new JLabel("please enter the y acceleration of your shuttle: "));
         JTextField accelY = new JTextField(15);
         fields.add(accelY);
-//        radius.addActionListener(new java.awt.event.ActionListener() {
-//            public void actionPerformed(ActionEvent e) {
-//                radius1 = Integer.parseInt(radius.getText());
-//            }
-//        });
+
         panel.add(accelY);
 
         panel.add(new JLabel("click this button once you are done choosing."));
@@ -105,7 +89,6 @@ public class OwnShuttleSurvey extends JFrame {
         panel.add(submit);
         submit.addActionListener(new OwnShuttleSurvey.ShuttleSurveyListener());
         add(panel);
-
     }
 
     private class ShuttleSurveyListener implements ActionListener {

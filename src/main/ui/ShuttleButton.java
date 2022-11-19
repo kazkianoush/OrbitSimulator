@@ -1,6 +1,5 @@
 package ui;
 
-import model.Planet;
 import model.Shuttle;
 
 import javax.swing.*;
@@ -61,7 +60,7 @@ public class ShuttleButton {
 
     private class ShuttleButtonListener1 implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            survey.getanswer(ShuttleButton.this);
+            survey.getAnswer(ShuttleButton.this);
         }
     }
 

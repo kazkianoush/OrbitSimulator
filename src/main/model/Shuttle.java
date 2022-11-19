@@ -71,7 +71,6 @@ public class Shuttle extends JComponent {
     }
 
 
-    @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     public void move(Planet p, GUI gui) {
         int x2 = (gui.WIDTH / 2);
         int y2 = (gui.HEIGHT / 2);
@@ -82,18 +81,7 @@ public class Shuttle extends JComponent {
             System.out.println(Math.cos(angle) * GRAVITY);
             ycor -= Math.sin(angle) * GRAVITY;
             if (Math.abs(Math.sqrt(Math.pow(ycor - y2,2) + Math.pow(xcor - x2,2))) < 300) {
-                if (Math.cos(angle) * GRAVITY > 0) {
-                    xcor -= Math.cos(angle) * GRAVITY;
-                }
-                if (Math.cos(angle) * GRAVITY < 0) {
-                    xcor -= Math.cos(angle) * GRAVITY;
-                }
-                if (Math.sin(angle) * GRAVITY < 0) {
-                    ycor -= Math.sin(angle) * GRAVITY;
-                }
-                if (Math.sin(angle) * GRAVITY > 0) {
-                    ycor -= Math.sin(angle) * GRAVITY;
-                }
+                checkIfs(angle);
 
             }
 
@@ -106,6 +94,21 @@ public class Shuttle extends JComponent {
             DX = 1;
             DY = 1;
             xcor = xcor + DX * (direction);
+        }
+    }
+
+    private void checkIfs(double angle) {
+        if (Math.cos(angle) * GRAVITY > 0) {
+            xcor -= Math.cos(angle) * GRAVITY;
+        }
+        if (Math.cos(angle) * GRAVITY < 0) {
+            xcor -= Math.cos(angle) * GRAVITY;
+        }
+        if (Math.sin(angle) * GRAVITY < 0) {
+            ycor -= Math.sin(angle) * GRAVITY;
+        }
+        if (Math.sin(angle) * GRAVITY > 0) {
+            ycor -= Math.sin(angle) * GRAVITY;
         }
     }
 
