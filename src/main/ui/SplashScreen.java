@@ -41,7 +41,7 @@ public class SplashScreen extends JFrame {
         frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
-        int delay = 2000; // Delay in milliseconds
+        int delay = 5000; // Delay in milliseconds
 
         Timer timer = new Timer(delay, new ActionListener() {
             public void actionPerformed(ActionEvent e) {
