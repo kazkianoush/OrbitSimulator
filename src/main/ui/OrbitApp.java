@@ -25,6 +25,8 @@ public class OrbitApp extends JFrame implements SetupInterface {
 
     private DrawShuttle drawShuttle;
     private DrawPlanet drawPlanet;
+    private PlanetButton drawButton;
+    private PlanetButton activePlanet;
     private Scanner input;
     private PlanetList planetList;
     private ShuttleList shuttleList;
@@ -37,13 +39,17 @@ public class OrbitApp extends JFrame implements SetupInterface {
     private JsonReader jsonReaderShuttle;
     private JsonReader jsonReaderPlanet;
 
+    private TitleScreen titleScreen;
+
     //EFFECTS: initiates Json readers and writers, asks whether you want to load previous file or not
     //         then proceeds with the game
-    public OrbitApp() {
+    public OrbitApp(TitleScreen titleScreen) {
         super("orbitApp");
-        setupJson();
-        Shuttle s = chooseShuttle();
-        Planet p = choosePlanet();
+        this.titleScreen = titleScreen;
+//        setupJson();
+
+        Shuttle s = titleScreen.chosenShuttle;
+        Planet p = titleScreen.chosenPlanet;
         try {
             initGame(p, s);
         } catch (InterruptedException e) {
@@ -54,6 +60,8 @@ public class OrbitApp extends JFrame implements SetupInterface {
         makeGui(s,p);
 
     }
+
+
 
     private void makeGui(Shuttle s, Planet p) {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -270,8 +278,6 @@ public class OrbitApp extends JFrame implements SetupInterface {
         s.setAccelY((int)p.getGravity() * -1);
         int x = 0;
         int y = 200;
-        System.out.println("when you are ready, type a number! (you can stop any time by typing \"s\")");
-        input.nextInt();
         s.setCor(x,y);
 //        for (int i = 0; i < 500; i++) {
 //            Thread.sleep(1000);
@@ -286,11 +292,11 @@ public class OrbitApp extends JFrame implements SetupInterface {
 //            System.out.println("xcor: " + s.getCor()[0] + "  ycor: " + s.getCor()[1]);
 //
 //        }
-        System.out.println("would you like to save your planet and shuttle? ");
-        String answer = input.next();
-        if (answer.equals("yes")) {
-            saveGame();
-        }
+//        System.out.println("would you like to save your planet and shuttle? ");
+//        String answer = input.next();
+//        if (answer.equals("yes")) {
+//            saveGame();
+//        }
     }
 
     public void printPlanetList() {
@@ -354,6 +360,16 @@ public class OrbitApp extends JFrame implements SetupInterface {
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
         setLocation((screen.width - getWidth()) / 2, (screen.height - getHeight()) / 2);
     }
+
+    public void setActivePlanet(PlanetButton planet) {
+        if (activePlanet != null) {
+            activePlanet.deactivate();
+        }
+        planet.activate();
+        activePlanet = planet;
+    }
+
+
 
 
 }

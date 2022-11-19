@@ -9,9 +9,11 @@ import java.awt.*;
 public class DrawShuttle extends JPanel {
 
     private GUI gui;
+    private JPanel jp;
 
     public DrawShuttle(GUI g) {
         setPreferredSize(new Dimension(gui.WIDTH, gui.HEIGHT));
+
         this.gui = g;
     }
 
@@ -23,6 +25,19 @@ public class DrawShuttle extends JPanel {
     public void drawGame(Graphics g) {
         drawShuttle(g);
         drawPlanet(g);
+    }
+
+    private void drawPlanetButton(Graphics g) {
+        jp = new JPanel();
+        jp.setLayout(new GridLayout(0,1));
+        jp.setSize(new Dimension(0,0));
+        add(jp, BorderLayout.SOUTH);
+//        PlanetButton p = new PlanetButton(jp);
+//        JPanel panel = new JPanel();
+//        panel.setLayout(new GridLayout(0,1));
+//        panel.setSize(new Dimension(0,0));
+//        add(panel,BorderLayout.SOUTH);
+//        PlanetButton planetButton = new PlanetButton(gui,panel);
     }
 
     private void drawPlanet(Graphics g) {

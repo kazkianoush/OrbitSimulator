@@ -8,12 +8,13 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 
-public class GUI {
+public class GUI extends JFrame {
 
     public static final int WIDTH = 600;
     public static final int HEIGHT = 700;
     private Shuttle shuttle;
     private Planet planet;
+    private PlanetButton activePlanet;
 
     public GUI(Shuttle s, Planet p) {
         this.shuttle = s;
@@ -87,6 +88,8 @@ public class GUI {
             shuttle.faceDown();
         }
     }
+
+
 
 
 }
