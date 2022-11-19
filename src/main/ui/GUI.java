@@ -16,6 +16,9 @@ public class GUI extends JFrame {
     private Planet planet;
     private PlanetButton activePlanet;
 
+
+    //EFFECTS: initiates drawShuttle
+
     public GUI(Shuttle s, Planet p) {
         this.shuttle = s;
         this.planet = p;
@@ -44,6 +47,9 @@ public class GUI extends JFrame {
         return this.planet;
     }
 
+
+    //EFFECTS: updates gui
+
     public void update() {
 //        if (shuttle.getCor()[0] > planet.getRadius() && shuttle.getCor()[0] < planet.getRadius() + planet.getRadius()
 //                && shuttle.getCor()[1] > planet.getRadius() && shuttle.getCor()[1] < planet.getRadius()
@@ -55,6 +61,8 @@ public class GUI extends JFrame {
         shuttle.move(planet, this);
     }
 
+
+    //EFFECTS: checks for boundary
     private void boundaryCheck() {
 //        int newX = 0;
 //        int newY = 0;
@@ -76,6 +84,8 @@ public class GUI extends JFrame {
         }
     }
 
+
+    //EFFECTS: checks what key is pressed
     public void keyPressed(int keyCode) {
 
         if (keyCode == KeyEvent.VK_RIGHT || keyCode == KeyEvent.VK_KP_RIGHT) {

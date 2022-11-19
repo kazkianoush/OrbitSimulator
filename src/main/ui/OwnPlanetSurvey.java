@@ -25,6 +25,8 @@ public class OwnPlanetSurvey extends JFrame {
 
     private TitleScreen titleScreen;
 
+
+
     public OwnPlanetSurvey(TitleScreen titleScreen) {
         super("Make your own planet");
         this.titleScreen = titleScreen;
@@ -33,6 +35,8 @@ public class OwnPlanetSurvey extends JFrame {
         setupPlanetScreen();
     }
 
+
+    //EFFECTS: sets up screen
     private void setupPlanetScreen() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setUndecorated(false);
@@ -42,11 +46,14 @@ public class OwnPlanetSurvey extends JFrame {
         setVisible(true);
     }
 
+    //EFFECTS: centers screen
     private void centreOnScreen() {
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
         setLocation((screen.width - getWidth()) / 2, (screen.height - getHeight()) / 2);
     }
 
+
+    //EFFECTS: creates first panel
     private void createPanel1() {
         JPanel panel = new JPanel();
         panel.add(new JLabel("<html><p>please enter a name for "
@@ -73,6 +80,7 @@ public class OwnPlanetSurvey extends JFrame {
 
     }
 
+    //EFFECTS: creates second half of first panel
     private void addOtherHalf(JPanel panel, JTextField water) {
         panel.add(water);
         panel.add(new JLabel("what is the radius of your planet?: "));
@@ -91,6 +99,13 @@ public class OwnPlanetSurvey extends JFrame {
         add(panel);
     }
 
+
+
+
+    // code below influenced by DrawingPlayer and SpaceInvaders
+
+
+    //EFFECTS: initiates listener
     private class PlanetSurveyListener implements ActionListener {
 
         @Override
@@ -105,6 +120,7 @@ public class OwnPlanetSurvey extends JFrame {
         }
     }
 
+    //EFFECTS: creates planet made by the user
     private void makePlanet() {
         System.out.println("making planet");
         this.dispose();

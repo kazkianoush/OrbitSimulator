@@ -14,6 +14,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
+
+
+// code below influenced by DrawingPlayer and SpaceInvaders
 public class TitleScreen extends JFrame {
 
     public static final int WIDTH = 600;
@@ -54,6 +57,8 @@ public class TitleScreen extends JFrame {
 
     }
 
+    //EFFECTS: sets up title screen
+
     private void setupTitleScreen() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -68,11 +73,14 @@ public class TitleScreen extends JFrame {
         setVisible(true);
     }
 
+    //EFFECTS: centres screen
     private void centreOnScreen() {
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
         setLocation((screen.width - getWidth()) / 2, (screen.height - getHeight()) / 2);
     }
 
+
+    //EFFECTS: creates first panel
     private void createPanel1() {
         if (firstTime) {
             JPanel popUp = new JPanel();
@@ -84,6 +92,7 @@ public class TitleScreen extends JFrame {
 
     }
 
+    //EFFECTS: creates second part of the panel
     private void part2() {
         panel = new JPanel();
         panel.setLayout(new GridLayout(0, 1));
@@ -103,18 +112,23 @@ public class TitleScreen extends JFrame {
         firstTime = false;
     }
 
+
+    //EFFECTS: resets panel1
     public void resetPanel(JPanel panel) {
         panel.removeAll();
         panel.updateUI();
         createPanel1();
     }
 
+    //EFFECTS: resets panel2
     public void resetPanel2(JPanel panel) {
         panel.removeAll();
         panel.updateUI();
         createPanel2();
     }
 
+
+    //EFFECTS: creates panel2
     private void createPanel2() {
         panel2 = new JPanel();
         panel2.add(new JLabel("please select a shuttle, or create a new one!"));
@@ -132,6 +146,8 @@ public class TitleScreen extends JFrame {
                 2, 0, 0, 0));
     }
 
+
+    //EFFECTS: makes planetList
     private PlanetList makePlanetList() {
         planetList = new PlanetList("List1");
         Planet a = new Planet("Generic1", (float) 3, true, true, 2);
@@ -144,6 +160,8 @@ public class TitleScreen extends JFrame {
         return planetList;
     }
 
+
+    //EFFECTS: makes shuttleList
     private ShuttleList makeShuttleList() {
         Shuttle a = new Shuttle("SaturnI",3,4,4,4);
         Shuttle b = new Shuttle("SaturnII",5,4,4,3);
@@ -155,6 +173,8 @@ public class TitleScreen extends JFrame {
         return shuttleList;
     }
 
+
+    //EFFECTS: makes which ever planet is chosen as active
     public void setActivePlanet(PlanetButton planetButton) {
         if (planetButton.planet.getName().equals("delete")) {
             removePlanetButton();
@@ -179,6 +199,8 @@ public class TitleScreen extends JFrame {
         checkIf(planetButton);
     }
 
+    //EFFECTS: checks which planet is active, but after the program has returned from making a planet
+
     public void setActivePlanet(OwnPlanetSurvey planetSurvey) throws InterruptedException {
         Planet planetToAdd = planetSurvey.getPlanet();
         resetPanel(panel);
@@ -189,6 +211,8 @@ public class TitleScreen extends JFrame {
             nextStep();
         }
     }
+
+    //EFFECTS: second part of the checks necessary
 
     private void checkIf(PlanetButton planetButton) {
         if (activePlanet != null) {
@@ -206,6 +230,7 @@ public class TitleScreen extends JFrame {
 
 
 
+    //EFFECTS: removes planet button
 
     private void removePlanetButton() {
         activePlanet.removeButton();
@@ -213,6 +238,8 @@ public class TitleScreen extends JFrame {
         panel.updateUI();
     }
 
+
+    //EFFECTS: removes shuttle button
     private void removeShuttleButton() {
         activeShuttle.removeButton();
         shuttleList.getList().remove(activeShuttle.shuttle);
@@ -220,6 +247,8 @@ public class TitleScreen extends JFrame {
     }
 
 
+
+    //EFFECTS: closes window and goes to the next step
 
     private void nextStep() {
         System.out.println(planetSubmitted + "5 " + shuttleSubmitted);
@@ -235,6 +264,8 @@ public class TitleScreen extends JFrame {
         SplashScreen splashScreen = new SplashScreen(this);
 //        OrbitApp app = new OrbitApp(this);
     }
+
+    //EFFECTS: sets active shuttle
 
     public void setActiveShuttle(ShuttleButton shuttleButton) {
         if (shuttleButton.shuttle.getName().equals("delete")) {
@@ -256,6 +287,8 @@ public class TitleScreen extends JFrame {
         checkIfs(shuttleButton);
     }
 
+
+    //EFFECTS: sets  active shuttle, but if coming back from making a custom shuttle
     public void setActiveShuttle(OwnShuttleSurvey shuttleSurvey) throws InterruptedException {
         Shuttle shuttleToAdd = shuttleSurvey.getShuttle();
         resetPanel2(panel2);
@@ -266,6 +299,8 @@ public class TitleScreen extends JFrame {
             nextStep();
         }
     }
+
+    //EFFECTS: second part of the checks
 
     private void checkIfs(ShuttleButton shuttleButton) {
         if (activeShuttle != null) {
@@ -283,6 +318,8 @@ public class TitleScreen extends JFrame {
 
 
 
+    //EFFECTS: initiates json
+
     private void setupJson(int loadFile) {
         jsonWriterPlanet = new JsonWriter(JSON_PLANET_LOC);
         jsonWriterShuttle = new JsonWriter(JSON_SHUTTLE_LOC);
@@ -296,6 +333,8 @@ public class TitleScreen extends JFrame {
         }
     }
 
+
+    //EFFECTS: saves game
     private void saveGame() {
         try {
             jsonWriterPlanet.open();
@@ -311,6 +350,7 @@ public class TitleScreen extends JFrame {
         }
     }
 
+    //EFFECTS: loads planet list
     private void loadPlanetList() {
         try {
             planetList = jsonReaderPlanet.readPlanets();

@@ -24,6 +24,11 @@ public class OwnShuttleSurvey extends JFrame {
 
     private TitleScreen titleScreen;
 
+
+
+    // code below influenced by DrawingPlayer and SpaceInvaders
+
+
     public OwnShuttleSurvey(TitleScreen titleScreen) {
         super("Make your own shuttle");
         this.titleScreen = titleScreen;
@@ -32,6 +37,7 @@ public class OwnShuttleSurvey extends JFrame {
         setupShuttleScreen();
     }
 
+    //EFFECTS: initiates shuttle screen
     private void setupShuttleScreen() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setUndecorated(false);
@@ -41,11 +47,15 @@ public class OwnShuttleSurvey extends JFrame {
         setVisible(true);
     }
 
+
+    //EFFECTS: centers screen
     private void centreOnScreen() {
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
         setLocation((screen.width - getWidth()) / 2, (screen.height - getHeight()) / 2);
     }
 
+
+    //EFFECTS: creates panel
     private void createPanel1() {
         JPanel panel = new JPanel();
         panel.add(new JLabel("<html><p>please enter a name for "
@@ -69,6 +79,8 @@ public class OwnShuttleSurvey extends JFrame {
 
     }
 
+
+    //EFFECTS: creates second part of panel
     private void part2(JPanel panel) {
         JTextField accelX = new JTextField(15);
         fields.add(accelX);
@@ -91,6 +103,8 @@ public class OwnShuttleSurvey extends JFrame {
         add(panel);
     }
 
+
+    //EFFECTS: adds listener
     private class ShuttleSurveyListener implements ActionListener {
 
         @Override
@@ -104,6 +118,7 @@ public class OwnShuttleSurvey extends JFrame {
         }
     }
 
+    //EFFECTS: makes shuttle created by the user
     private void makeShuttle() {
         setVisible(false);
         this.dispose();

@@ -62,7 +62,7 @@ public class OrbitApp extends JFrame implements SetupInterface {
     }
 
 
-
+    //EFFECTS: makes gui
     private void makeGui(Shuttle s, Planet p) {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setUndecorated(false);
@@ -76,6 +76,8 @@ public class OrbitApp extends JFrame implements SetupInterface {
         addTimer();
     }
 
+
+    //EFFECTS: adds timer
     private void addTimer() {
         Timer t = new Timer(10, new ActionListener() {
             @Override
@@ -87,6 +89,7 @@ public class OrbitApp extends JFrame implements SetupInterface {
         t.start();
     }
 
+    //EFFECTS: sets up json
     private void setupJson() {
         jsonWriterPlanet = new JsonWriter(JSON_PLANET_LOC);
         jsonWriterShuttle = new JsonWriter(JSON_SHUTTLE_LOC);

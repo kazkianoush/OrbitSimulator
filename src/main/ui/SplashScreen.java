@@ -19,6 +19,9 @@ public class SplashScreen extends JFrame {
     private JLabel label;
     private JLabel text;
 
+    // code below influenced by DrawingPlayer and SpaceInvaders
+
+    //EFFECTS: initiates screen, and says which planet and shuttle are loading
     public SplashScreen(TitleScreen titleScreen) {
 //        imageIcon = new ImageIcon();
 

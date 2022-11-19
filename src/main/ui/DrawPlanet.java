@@ -9,6 +9,8 @@ import java.awt.Color.*;
 public class DrawPlanet extends JPanel {
     private GUI gui;
 
+
+    //initiates drawing of planet
     public DrawPlanet(GUI g) {
         setPreferredSize(new Dimension(gui.WIDTH, gui.HEIGHT));
         this.gui = g;

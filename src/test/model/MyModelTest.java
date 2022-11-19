@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import persistence.JsonReader;
 import persistence.JsonWriter;
+import ui.GUI;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -138,6 +139,13 @@ class MyModelTest {
     f.setName("bean");
     assertEquals("bean", f.getName());
     d.toJSon();
+    c.faceUp();
+    c.faceDown();
+    c.faceRight();
+    c.faceLeft();
+    c.move(a,new GUI(c,a));
+    c.flipX();
+    c.flipY();
 
 
     }
