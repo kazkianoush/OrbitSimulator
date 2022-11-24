@@ -2,15 +2,13 @@ package ui;
 
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 import model.*;
+import model.Event;
 import persistence.JsonWriter;
 import persistence.JsonReader;
 
@@ -65,6 +63,14 @@ public class OrbitApp extends JFrame implements SetupInterface {
     //EFFECTS: makes gui
     private void makeGui(Shuttle s, Planet p) {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                for (Event event : EventLog.getInstance()) {
+                    System.out.println(event.getDescription());
+                }
+            }
+        });
         setUndecorated(false);
         gui = new GUI(s,p);
         drawShuttle = new DrawShuttle(gui);

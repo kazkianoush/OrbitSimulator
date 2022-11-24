@@ -18,7 +18,16 @@ public class PlanetList implements Writable {
     }
 
     public void add(Planet planet) {
+        if (!planet.getName().contains("Generic")) {
+            EventLog.getInstance().logEvent(new Event("added a planet: " + planet.getName() + " to the planetList"));
+        }
         planetList.add(planet);
+    }
+
+
+    public void remove(Planet planet) {
+        EventLog.getInstance().logEvent(new Event("removed planet: " + planet.getName() + " from planetList"));
+        this.planetList.remove(planet);
     }
 
     public Planet get(int index) {

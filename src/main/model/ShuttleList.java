@@ -16,7 +16,15 @@ public class ShuttleList  implements Writable {
 
     //EFFECT: adds given shuttle to shuttleList
     public void add(Shuttle e) {
+        if (!e.getName().contains("Saturn")) {
+            EventLog.getInstance().logEvent(new Event("added a shuttle: " + e.getName() + " to the shuttleList"));
+        }
         this.shuttleList.add(e);
+    }
+
+    public void remove(Shuttle e) {
+        EventLog.getInstance().logEvent(new Event("removed shuttle: " + e.getName() + " from shuttleList"));
+        this.shuttleList.remove(e);
     }
 
     public Shuttle get(int index) {

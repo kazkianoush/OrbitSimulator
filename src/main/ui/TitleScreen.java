@@ -234,7 +234,7 @@ public class TitleScreen extends JFrame {
 
     private void removePlanetButton() {
         activePlanet.removeButton();
-        planetList.getList().remove(activePlanet.planet);
+        planetList.remove(activePlanet.planet);
         panel.updateUI();
     }
 
@@ -242,7 +242,6 @@ public class TitleScreen extends JFrame {
     //EFFECTS: removes shuttle button
     private void removeShuttleButton() {
         activeShuttle.removeButton();
-        shuttleList.getList().remove(activeShuttle.shuttle);
         panel2.updateUI();
     }
 
