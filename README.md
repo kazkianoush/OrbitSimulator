@@ -28,8 +28,13 @@ the application will be designed to run **shuttle simulations** as it traverses 
 6. after that, you will see a pop up window telling you to wait while the application loads.This is where my image is.
 7. then you will see a tiny square and a big circle in the middle of the screen, you can control the square by using the direction keys, the gravity function is still a work in progress unfortunately, but right now if you approach the planet from some angles, it looks like it is kind of bouncing around parts of the planet.
 
-## PHASE 4: TASK2
+## PHASE 4: TASK 2
 
+#### make sure to exit the application when you have completed the setup process and are in the game page.
 - removed planet: Generic3 from planetList
 - added a planet: newPlanet to the planetList
 - removed shuttle: SaturnIII from shuttleList
+- -added a shuttle: newShuttle to the shuttleList
+
+## PHASE 4: TASK 3
+

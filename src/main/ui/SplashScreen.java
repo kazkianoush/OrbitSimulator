@@ -41,12 +41,12 @@ public class SplashScreen extends JFrame {
         frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
-        int delay = 5000; // Delay in milliseconds
+        int delay = 5000;
 
         Timer timer = new Timer(delay, new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 OrbitApp app = new OrbitApp(titleScreen);
-                frame.setVisible(false); // Hide the first frame
+                frame.setVisible(false);
             }
         });
         timer.start();

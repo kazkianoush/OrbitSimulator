@@ -37,13 +37,13 @@ public class OrbitApp extends JFrame implements SetupInterface {
     private JsonReader jsonReaderShuttle;
     private JsonReader jsonReaderPlanet;
 
-    private TitleScreen titleScreen;
+//    private TitleScreen titleScreen;
 
     //EFFECTS: initiates Json readers and writers, asks whether you want to load previous file or not
     //         then proceeds with the game
     public OrbitApp(TitleScreen titleScreen) {
         super("orbitApp");
-        this.titleScreen = titleScreen;
+//        this.titleScreen = titleScreen;
 //        setupJson();
 
         Shuttle s = titleScreen.chosenShuttle;

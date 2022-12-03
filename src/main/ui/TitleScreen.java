@@ -242,6 +242,7 @@ public class TitleScreen extends JFrame {
     //EFFECTS: removes shuttle button
     private void removeShuttleButton() {
         activeShuttle.removeButton();
+        shuttleList.remove(activeShuttle.shuttle);
         panel2.updateUI();
     }
 
