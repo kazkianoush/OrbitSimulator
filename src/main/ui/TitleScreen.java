@@ -100,7 +100,6 @@ public class TitleScreen extends JFrame {
         add(panel, BorderLayout.NORTH);
         panel.add(new JLabel("please select a planet, or create a new one!"));
         for (Planet p : planetList.getList()) {
-            System.out.println(p.getName());
             PlanetButton planetButton = new PlanetButton(this, panel, p);
         }
         PlanetButton nextButton = new PlanetButton(this, panel, new Planet("new",0,true,true,0));
@@ -188,7 +187,6 @@ public class TitleScreen extends JFrame {
                 chosenPlanet = activePlanet.planet;
                 planetButton.removeButton();
                 planetSubmitted = true;
-                System.out.println(planetSubmitted + "1 " + shuttleSubmitted);
                 if (planetSubmitted && shuttleSubmitted) {
                     nextStep();
                 }
@@ -205,8 +203,6 @@ public class TitleScreen extends JFrame {
         Planet planetToAdd = planetSurvey.getPlanet();
         resetPanel(panel);
         Thread.sleep(1000);
-        System.out.println(planetSubmitted + " 2 " + shuttleSubmitted);
-
         if (planetSubmitted && shuttleSubmitted) {
             nextStep();
         }
@@ -224,7 +220,6 @@ public class TitleScreen extends JFrame {
             newPlanet = false;
             planetButton.activate();
             activePlanet = planetButton;
-            System.out.println(activePlanet.planet.getName());
         }
     }
 
@@ -251,7 +246,6 @@ public class TitleScreen extends JFrame {
     //EFFECTS: closes window and goes to the next step
 
     private void nextStep() {
-        System.out.println(planetSubmitted + "5 " + shuttleSubmitted);
 
         setVisible(false);
         dispose();
@@ -293,7 +287,6 @@ public class TitleScreen extends JFrame {
         Shuttle shuttleToAdd = shuttleSurvey.getShuttle();
         resetPanel2(panel2);
         Thread.sleep(1000);
-        System.out.println(planetSubmitted + "4 " + shuttleSubmitted);
 
         if (planetSubmitted && shuttleSubmitted) {
             nextStep();
@@ -312,7 +305,6 @@ public class TitleScreen extends JFrame {
             newShuttle = false;
             shuttleButton.activate();
             activeShuttle = shuttleButton;
-            System.out.println(activeShuttle.shuttle.getName());
         }
     }
 
@@ -365,7 +357,6 @@ public class TitleScreen extends JFrame {
     private void loadShuttleList() {
         try {
             shuttleList = jsonReaderShuttle.readShuttles();
-            System.out.println("loaded" + shuttleList.getListName() + "From: " + JSON_SHUTTLE_LOC);
 
         } catch (IOException e) {
             throw new RuntimeException();

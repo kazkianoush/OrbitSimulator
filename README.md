@@ -38,3 +38,8 @@ the application will be designed to run **shuttle simulations** as it traverses 
 
 ## PHASE 4: TASK 3
 
+- make ShuttleButton and PlanetButton extend a new class in order to cover the functions which they have in common. This would consequently combine the ShuttleButtonListener and the PlanetButtonListener.
+- make OwnShuttleSurvey and OwnPlanetSurvey extend a new class to cover the functionalities they have in common. That would consequently combine the PlanetSurveyListener and the ShuttleSurveyListener.
+- make new classes to initialize generic PlanetList and generic ShuttleList in order to not repeat the process every time I want to make a generic set of shuttles and planets.
+- 
+
